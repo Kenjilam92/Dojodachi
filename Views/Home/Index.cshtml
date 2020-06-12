@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model DojoDachi;
+<div class="container">
+    <div class="jumbotron">
+        <h1>Hello! I am DojoDachi.</h1>
+    </div>
+    <div class="col text-center">
+        <p>Fullness: @Model.Fullness Happiness: @Model.Happines Meals: @Model.Meals Energy: @Model.Energy</p>
+        <div class="col border border-dark ">
+            @if (Model.Alive==true && Model.Win==false)
+            {
+                <img src="https://www.allthingsdogs.com/wp-content/uploads/2020/03/Shiba-Inu.jpg" alt="shibu-inu" class="w-100 mt-2">
+            }
+            else if(Model.Alive==false)
+            {
+                <img src="https://indianmemetemplates.com/storage/Doge-Crying.jpg" alt="shibu-inu" class="w-100 mt-2">
+            }
+            else if (Model.Win==true)
+            {
+                <img src="https://i.redd.it/2pmem3rcg39z.png" alt="shibu-inu" class="w-100 mt-2">
+            }
+            <div class="col boder boder-primary overflow-auto" style="height: 100px;">
+                @{
+                    Model.History.Reverse();
+                }
+                @foreach (var his in Model.History)
+                {
+                    <p>@his</p>
+                }
+            </div>
+        </div>
+        @if (Model.Alive == true && Model.Win == false)
+        {
+        <div class="row justify-content-around mt-3">
+            <a href="/dojodachi/Feed" class="col-2 btn btn-primary">Feed</a>
+            <a href="/dojodachi/Play" class="col-2 btn btn-success">Play</a>
+            <a href="/dojodachi/Work" class="col-2 btn btn-danger">Work</a>
+            <a href="/dojodachi/Sleep" class="col-2 btn btn-secondary">Sleep</a>
+        </div>
+        }
+        else if (Model.Win == true)
+        {
+            <div class="col justify-content-around mt-3">
+                <p>Congratulation! You Won!</p>
+                <a href="/reset" class="btn btn-success">Reset</a>
+            </div>
+        }
+        else if (Model.Alive == false)
+        {
+            <div class="col justify-content-around mt-3">
+                <p>Oh No! You Lost!</p>
+                <a href="/reset" class="btn btn-danger">Reset</a>
+            </div>
+        }
+    </div>
+</div>
